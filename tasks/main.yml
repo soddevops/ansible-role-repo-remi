@@ -1,10 +1,12 @@
 ---
 - name: Import remi GPG key.
-  rpm_key:
-    key: "{{ remi_repo_gpg_key_url }}"
+  ansible.builtin.rpm_key:
+    key: "{{ item }}"
     state: present
+  loop: "{{ remi_repo_gpg_key_url }}"
 
 - name: Install remi repo.
-  yum:
+  ansible.builtin.yum:
     name: "{{ remi_repo_url }}"
     state: present
+...
